@@ -2,7 +2,7 @@ use crate::enums::{JrkG2Command, VarOffset};
 use crate::jrk::JrkG2;
 use embedded_hal::blocking::i2c;
 
-/// Implement the JrkG2 trait for I2C
+/// Implement the `JrkG2` trait for I2C
 pub struct JrkG2I2c<I2c> {
     device: u8,
     i2c: I2c,
@@ -13,7 +13,7 @@ where
     I2c: i2c::Write<Error = I2cError> + i2c::Read<Error = I2cError>,
 {
     pub fn new(i2c: I2c) -> Self {
-        JrkG2I2c { device: 0x0B, i2c }
+        Self { device: 0x0B, i2c }
     }
     /// The controller have a default 0x0B I2C address, but this can be manually changed in the
     /// configuration utility.

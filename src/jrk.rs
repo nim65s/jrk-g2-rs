@@ -22,13 +22,13 @@ pub trait JrkG2<ComError> {
     fn stop_motor(&mut self) -> Result<(), ComError> {
         self.write(&[JrkG2Command::MotorOff as u8])
     }
-    /// Print one of the internal variables of the controller to a fmt::Write implementor
+    /// Print one of the internal variables of the controller to a `fmt::Write` implementor
     fn show_var<W: fmt::Write>(&mut self, f: &mut W, var: VarOffset) -> Result<(), ComError> {
         let val = self.read(var)?;
         f.write_fmt(format_args!("{var:?}: {val}\n")).ok();
         Ok(())
     }
-    /// Print main internal variables of the controller to a fmt::Write implementor
+    /// Print main internal variables of the controller to a `fmt::Write` implementor
     fn show_vars<W: fmt::Write>(&mut self, f: &mut W) -> Result<(), ComError> {
         self.show_var(f, VarOffset::Input)?;
         self.show_var(f, VarOffset::Target)?;

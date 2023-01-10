@@ -160,8 +160,8 @@ pub enum JrkG2Command {
 /// cycle, normally derived from the output of its PID algorithm, can be
 /// overridden with a forced value.
 ///
-/// See JrkG2Base::getForceMode(), JrkG2Base::forceDutyCycleTarget(), and
-/// JrkG2Base::forceDutyCycle().
+/// See `JrkG2Base::getForceMode`(), `JrkG2Base::forceDutyCycleTarget`(), and
+/// `JrkG2Base::forceDutyCycle`().
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
@@ -175,7 +175,7 @@ pub enum JrkG2ForceMode {
 /// This enum defines the possible causes of a full microcontroller reset for
 /// the Jrk G2.
 ///
-/// See JrkG2Base::getDeviceReset().
+/// See `JrkG2Base::getDeviceReset`().
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
@@ -207,9 +207,9 @@ pub enum JrkG2Pin {
 }
 
 /// This enum defines the bits in the Jrk G2's Options Byte 3 register.  You
-/// should not need to use this directly.  See JrkG2Base::setResetIntegral(),
-/// JrkG2Base::getResetIntegral(), JrkG2Base::setCoastWhenOff(), and
-/// JrkG2Base::getCoastWhenOff().
+/// should not need to use this directly.  See `JrkG2Base::setResetIntegral`(),
+/// `JrkG2Base::getResetIntegral`(), `JrkG2Base::setCoastWhenOff`(), and
+/// `JrkG2Base::getCoastWhenOff`().
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]

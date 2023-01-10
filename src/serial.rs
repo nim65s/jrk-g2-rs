@@ -3,7 +3,7 @@ use crate::jrk::JrkG2;
 use embedded_hal::serial;
 use nb::block;
 
-/// Implement the JrkG2 trait for Serial
+/// Implement the `JrkG2` trait for Serial
 pub struct JrkG2Serial<Serial> {
     serial: Serial,
 }
@@ -13,7 +13,7 @@ where
     Serial: serial::Write<u8> + serial::Read<u8>,
 {
     pub fn new(serial: Serial) -> Self {
-        JrkG2Serial { serial }
+        Self { serial }
     }
 }
 

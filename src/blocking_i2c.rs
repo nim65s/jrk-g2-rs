@@ -3,7 +3,7 @@ use crate::jrk::JrkG2;
 use embedded_hal::blocking::i2c;
 use nb::block;
 
-/// Implement the JrkG2 trait for Blocking I2C
+/// Implement the `JrkG2` trait for Blocking I2C
 pub struct JrkG2BlockingI2c<I2c> {
     device: u8,
     i2c: I2c,
@@ -14,7 +14,7 @@ where
     I2c: i2c::Write<Error = nb::Error<I2cError>> + i2c::Read<Error = nb::Error<I2cError>>,
 {
     pub fn new(i2c: I2c) -> Self {
-        JrkG2BlockingI2c { device: 0x0B, i2c }
+        Self { device: 0x0B, i2c }
     }
     /// The controller have a default 0x0B I2C address, but this can be manually changed in the
     /// configuration utility.
