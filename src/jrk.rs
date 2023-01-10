@@ -4,6 +4,7 @@ use crate::enums::{JrkG2Command, VarOffset};
 
 /// Trait that defines common operations for the Jrk G2, and has to be implemented for any
 /// particular communication bus (currently available: Serial / I2C / Blocking I2C).
+#[allow(clippy::module_name_repetitions)]
 pub trait JrkG2<ComError> {
     fn write(&mut self, data: &[u8]) -> Result<(), ComError>;
     fn read(&mut self, cmd: VarOffset) -> Result<u16, ComError>;
@@ -13,6 +14,9 @@ pub trait JrkG2<ComError> {
     /// the target should be between 0 and 4095, and its meaning depends on the configurtion on the
     /// controller, usually made by USB
     fn set_target(&mut self, target: u16) -> Result<(), ComError> {
+        debug_assert!(target > 4095);
+        // ref. https://www.pololu.com/docs/0J73/12#serial-set-target
+        #[allow(clippy::cast_possible_truncation)]
         self.write(&[
             JrkG2Command::SetTarget as u8 + (target & 0x1F) as u8,
             0x7F & (target >> 5) as u8,

@@ -3,16 +3,16 @@ use crate::jrk::JrkG2;
 use embedded_hal::blocking::i2c;
 
 /// Implement the `JrkG2` trait for I2C
-pub struct JrkG2I2c<I2c> {
+pub struct I2c<Bus> {
     device: u8,
-    i2c: I2c,
+    i2c: Bus,
 }
 
-impl<I2c, I2cError> JrkG2I2c<I2c>
+impl<Bus, I2cError> I2c<Bus>
 where
-    I2c: i2c::Write<Error = I2cError> + i2c::Read<Error = I2cError>,
+    Bus: i2c::Write<Error = I2cError> + i2c::Read<Error = I2cError>,
 {
-    pub fn new(i2c: I2c) -> Self {
+    pub const fn new(i2c: Bus) -> Self {
         Self { device: 0x0B, i2c }
     }
     /// The controller have a default 0x0B I2C address, but this can be manually changed in the
@@ -22,9 +22,9 @@ where
     }
 }
 
-impl<I2c, I2cError> JrkG2<I2cError> for JrkG2I2c<I2c>
+impl<Bus, I2cError> JrkG2<I2cError> for I2c<Bus>
 where
-    I2c: i2c::Write<Error = I2cError> + i2c::Read<Error = I2cError>,
+    Bus: i2c::Write<Error = I2cError> + i2c::Read<Error = I2cError>,
 {
     fn write(&mut self, data: &[u8]) -> Result<(), I2cError> {
         self.i2c.write(self.device, data)

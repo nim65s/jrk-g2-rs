@@ -1,4 +1,4 @@
-//! Get state and start/stop motor on a Jrk with a STM32f1xx
+//! Get state and start/stop motor on a Jrk with a `STM32f1xx`
 //!
 //! In this example, the Jrk is connected on serial:
 //! TX on PB10, RX on PB11
@@ -15,11 +15,13 @@ use nb::block;
 use panic_halt as _;
 use stm32f1xx_hal::{i2c, pac, prelude::*, serial, timer::Timer};
 
-use jrk_g2_rs::{JrkG2, JrkG2Serial};
+use jrk_g2_rs::{JrkG2, Serial};
 
 #[entry]
 fn main() -> ! {
+    #[allow(clippy::unwrap_used)]
     let cp = cortex_m::Peripherals::take().unwrap();
+    #[allow(clippy::unwrap_used)]
     let dp = pac::Peripherals::take().unwrap();
 
     let mut flash = dp.FLASH.constrain();
@@ -78,7 +80,7 @@ fn main() -> ! {
         &mut rcc.apb1,
     );
 
-    let mut jrk = JrkG2Serial::new(jrk_ser);
+    let mut jrk = Serial::new(jrk_ser);
     writeln!(tx, "Jrk initialized on stm32 by serial").unwrap();
 
     loop {

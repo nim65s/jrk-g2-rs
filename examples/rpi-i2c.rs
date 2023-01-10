@@ -1,13 +1,13 @@
 use linux_embedded_hal::I2cdev;
 use std::{thread, time};
 
-use jrk_g2_rs::{JrkG2, JrkG2I2c};
+use jrk_g2_rs::{I2c as Jrk, JrkG2};
 
-fn main() {
-    let i2c = I2cdev::new("/dev/i2c-1").unwrap();
-    let mut jrk = JrkG2I2c::new(i2c);
+fn main() -> Result<(), linux_embedded_hal::i2cdev::linux::LinuxI2CError> {
+    let i2c = I2cdev::new("/dev/i2c-1")?;
+    let mut jrk = Jrk::new(i2c);
     println!("jrk initialized on rpi by i2c");
-    let mut ret: String = "".to_string();
+    let mut ret: String = String::new();
 
     loop {
         if let Err(e) = jrk.stop_motor() {
@@ -16,7 +16,7 @@ fn main() {
         thread::sleep(time::Duration::from_secs(2));
         jrk.show_vars(&mut ret).ok();
         println!("{ret}");
-        ret = "".to_string();
+        ret = String::new();
 
         if let Err(e) = jrk.set_target(1500) {
             println!("I2cError: {e:?}");
@@ -24,6 +24,6 @@ fn main() {
         thread::sleep(time::Duration::from_secs(2));
         jrk.show_vars(&mut ret).ok();
         println!("{ret}");
-        ret = "".to_string();
+        ret = String::new();
     }
 }

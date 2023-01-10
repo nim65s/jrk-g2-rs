@@ -7,10 +7,10 @@ mod jrk;
 pub use jrk::JrkG2;
 
 mod i2c;
-pub use i2c::JrkG2I2c;
+pub use i2c::I2c;
 
 mod blocking_i2c;
-pub use blocking_i2c::JrkG2BlockingI2c;
+pub use blocking_i2c::BlockingI2c;
 
 mod serial;
-pub use serial::JrkG2Serial;
+pub use serial::Serial;

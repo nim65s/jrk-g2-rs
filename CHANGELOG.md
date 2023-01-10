@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - remove HEADER
+- rename `JrkG2Serial` → `Serial`
+- rename `JrkG2I2c` → `I2c`
+- rename `JrkG2BlockingI2c` → `BlockingI2c`
 - ufmt optional
 - bump edition to 2021
 - clean
