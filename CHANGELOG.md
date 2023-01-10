@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2022-01-10
+
 - remove HEADER
 - rename `JrkG2Serial` → `Serial`
 - rename `JrkG2I2c` → `I2c`
@@ -26,5 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Split main struct into a JrkG2 trait implemented by JrkG2I2c / JrkG2BlockingI2c / JrkG2Serial
 - Added examples for i²c / serial with stm32 / rpi / arduino
 
+[2.0.0]: https://github.com/nim65s/jrk-g2-rs/compare/v1.0.1...v2.0.0
 [1.0.1]: https://github.com/nim65s/jrk-g2-rs/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/nim65s/jrk-g2-rs/releases/tag/v1.0.0
