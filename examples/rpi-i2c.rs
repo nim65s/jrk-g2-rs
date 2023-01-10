@@ -1,7 +1,7 @@
 use linux_embedded_hal::I2cdev;
 use std::{thread, time};
 
-use jrk_g2_rs::{I2c as Jrk, JrkG2};
+use jrk_g2::{I2c as Jrk, JrkG2};
 
 fn main() -> Result<(), linux_embedded_hal::i2cdev::linux::LinuxI2CError> {
     let i2c = I2cdev::new("/dev/i2c-1")?;

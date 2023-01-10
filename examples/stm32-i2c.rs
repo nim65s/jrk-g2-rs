@@ -15,7 +15,7 @@ use nb::block;
 use panic_halt as _;
 use stm32f1xx_hal::{i2c, pac, prelude::*, serial, timer::Timer};
 
-use jrk_g2_rs::{BlockingI2c, JrkG2};
+use jrk_g2::{BlockingI2c as Jrk, JrkG2};
 
 #[entry]
 fn main() -> ! {
@@ -82,7 +82,7 @@ fn main() -> ! {
 
     let (_jrk_tx, _jrk_rx) = jrk_ser.split();
 
-    let mut jrk = BlockingI2c::new(i2c);
+    let mut jrk = Jrk::new(i2c);
     writeln!(tx, "Jrk initialized on stm32 by i2c").unwrap();
 
     loop {

@@ -4,7 +4,7 @@
 use arduino_uno::prelude::*;
 use panic_halt as _;
 
-use jrk_g2_rs::{JrkG2, I2c as Jrk};
+use jrk_g2::{JrkG2, I2c as Jrk};
 
 #[arduino_uno::entry]
 fn main() -> ! {

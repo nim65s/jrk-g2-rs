@@ -15,7 +15,7 @@ use nb::block;
 use panic_halt as _;
 use stm32f1xx_hal::{i2c, pac, prelude::*, serial, timer::Timer};
 
-use jrk_g2_rs::{JrkG2, Serial};
+use jrk_g2::{JrkG2, Serial as Jrk};
 
 #[entry]
 fn main() -> ! {
@@ -80,7 +80,7 @@ fn main() -> ! {
         &mut rcc.apb1,
     );
 
-    let mut jrk = Serial::new(jrk_ser);
+    let mut jrk = Jrk::new(jrk_ser);
     writeln!(tx, "Jrk initialized on stm32 by serial").unwrap();
 
     loop {

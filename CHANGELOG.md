@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - rename `JrkG2Serial` → `Serial`
 - rename `JrkG2I2c` → `I2c`
 - rename `JrkG2BlockingI2c` → `BlockingI2c`
+- rename `jrk-g2-rs` → `jrk-g2`
 - ufmt optional
 - bump edition to 2021
 - clean

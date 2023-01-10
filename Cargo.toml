@@ -1,5 +1,5 @@
 [package]
-name = "jrk-g2-rs"
+name = "jrk-g2"
 version = "1.0.1"
 authors = ["Guilhem Saurel <guilhem.saurel@laas.fr>"]
 edition = "2021"

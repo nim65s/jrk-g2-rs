@@ -1,7 +1,7 @@
 use linux_embedded_hal::Serial;
 use std::{path, thread, time};
 
-use jrk_g2_rs::{JrkG2, Serial as Jrk};
+use jrk_g2::{JrkG2, Serial as Jrk};
 
 fn main() -> Result<(), linux_embedded_hal::serial_core::Error> {
     let serial = Serial::open(path::Path::new("/dev/ttyS0"))?;
