@@ -4,7 +4,7 @@
 use arduino_uno::prelude::*;
 use panic_halt as _;
 
-use jrk_g2_rs::{JrkG2, JrkG2I2c};
+use jrk_g2_rs::{JrkG2, I2c as Jrk};
 
 #[arduino_uno::entry]
 fn main() -> ! {
@@ -28,7 +28,7 @@ fn main() -> ! {
         50000,
     );
 
-    let mut jrk = JrkG2I2c::new(i2c);
+    let mut jrk = Jrk::new(i2c);
     ufmt::uwriteln!(&mut serial, "jrk initialized on arduino by i2c").void_unwrap();
 
     loop {

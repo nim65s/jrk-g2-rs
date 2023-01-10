@@ -4,7 +4,7 @@
 use arduino_uno::prelude::*;
 use panic_halt as _;
 
-use jrk_g2_rs::{JrkG2, JrkG2Serial};
+use jrk_g2_rs::{JrkG2, Serial as Jrk};
 
 #[arduino_uno::entry]
 fn main() -> ! {
@@ -20,7 +20,7 @@ fn main() -> ! {
         115_200.into_baudrate(),
     );
 
-    let mut jrk = JrkG2Serial::new(serial);
+    let mut jrk = Jrk::new(serial);
 
     loop {
         jrk.stop_motor().ok();
