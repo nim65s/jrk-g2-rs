@@ -26,15 +26,13 @@ impl<I2c, I2cError> JrkG2<I2cError> for JrkG2I2c<I2c>
 where
     I2c: i2c::Write<Error = I2cError> + i2c::Read<Error = I2cError>,
 {
-    const HEADER: &'static str = "Reading Jrk state from I2C:\n";
-
     fn write(&mut self, data: &[u8]) -> Result<(), I2cError> {
-        self.i2c.write(self.device, &data)
+        self.i2c.write(self.device, data)
     }
     fn read(&mut self, cmd: VarOffset) -> Result<u16, I2cError> {
         let mut buf: [u8; 2] = [0, 0];
         self.write(&[JrkG2Command::GetVariable16 as u8 | (cmd as u8 + 1)])?;
         self.i2c.read(self.device, &mut buf)?;
-        Ok(buf[0] as u16 + buf[1] as u16 * 256)
+        Ok(u16::from_le_bytes(buf))
     }
 }

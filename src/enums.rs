@@ -1,9 +1,12 @@
 // Copy-Paste from https://github.com/pololu/jrk-g2-arduino/blob/master/JrkG2.h
+#[cfg(feature = "ufmt")]
 use ufmt::derive::uDebug;
 
 /// This enum defines the variables that can be read from the Jrk G2
 #[allow(dead_code)]
-#[derive(uDebug, Debug, Copy, Clone)]
+#[repr(u8)]
+#[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[derive(Debug, Copy, Clone)]
 pub enum VarOffset {
     Input = 0x00,              // u16
     Target = 0x02,             // u16
@@ -39,7 +42,9 @@ pub enum VarOffset {
 }
 
 #[allow(dead_code)]
-#[derive(uDebug, Debug, Copy, Clone)]
+#[repr(u8)]
+#[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[derive(Debug, Copy, Clone)]
 pub enum SettingOffset {
     OptionsByte1 = 0x01,                        // u8
     OptionsByte2 = 0x02,                        // u8
@@ -108,7 +113,9 @@ pub enum SettingOffset {
 }
 
 #[allow(dead_code)]
-#[derive(uDebug, Debug, Copy, Clone)]
+#[repr(u8)]
+#[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[derive(Debug, Copy, Clone)]
 pub enum JrkG2Error {
     AwaitingCommand = 0,
     NoPower = 1,
@@ -130,7 +137,9 @@ pub enum JrkG2Error {
 /// I2C interfaces.  These bytes are used by the library and you should not need
 /// to use them.
 #[allow(dead_code)]
-#[derive(uDebug, Debug, Copy, Clone)]
+#[repr(u8)]
+#[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[derive(Debug, Copy, Clone)]
 pub enum JrkG2Command {
     SetTarget = 0xC0,
     SetTargetLowResRev = 0xE0,
@@ -154,7 +163,9 @@ pub enum JrkG2Command {
 /// See JrkG2Base::getForceMode(), JrkG2Base::forceDutyCycleTarget(), and
 /// JrkG2Base::forceDutyCycle().
 #[allow(dead_code)]
-#[derive(uDebug, Debug, Copy, Clone)]
+#[repr(u8)]
+#[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[derive(Debug, Copy, Clone)]
 pub enum JrkG2ForceMode {
     None = 0,
     DutyCycleTarget = 1,
@@ -166,7 +177,9 @@ pub enum JrkG2ForceMode {
 ///
 /// See JrkG2Base::getDeviceReset().
 #[allow(dead_code)]
-#[derive(uDebug, Debug, Copy, Clone)]
+#[repr(u8)]
+#[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[derive(Debug, Copy, Clone)]
 pub enum JrkG2Reset {
     PowerUp = 0,
     Brownout = 1,
@@ -179,16 +192,18 @@ pub enum JrkG2Reset {
 
 /// This enum defines the Jrk G2's control and feedback pins.
 #[allow(dead_code)]
-#[derive(uDebug, Debug, Copy, Clone)]
+#[repr(u8)]
+#[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[derive(Debug, Copy, Clone)]
 pub enum JrkG2Pin {
-    SCL = 0,
-    SDA = 1,
-    TX = 2,
-    RX = 3,
-    RC = 4,
-    AUX = 5,
-    FBA = 6,
-    FBT = 7,
+    Scl = 0,
+    Sda = 1,
+    Tx = 2,
+    Rx = 3,
+    Rc = 4,
+    Aux = 5,
+    Fba = 6,
+    Fbt = 7,
 }
 
 /// This enum defines the bits in the Jrk G2's Options Byte 3 register.  You
@@ -196,7 +211,9 @@ pub enum JrkG2Pin {
 /// JrkG2Base::getResetIntegral(), JrkG2Base::setCoastWhenOff(), and
 /// JrkG2Base::getCoastWhenOff().
 #[allow(dead_code)]
-#[derive(uDebug, Debug, Copy, Clone)]
+#[repr(u8)]
+#[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[derive(Debug, Copy, Clone)]
 pub enum JrkG2OptionsByte3 {
     ResetIntegral = 0,
     CoastWhenOff = 1,

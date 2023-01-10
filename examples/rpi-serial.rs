@@ -11,19 +11,19 @@ fn main() {
 
     loop {
         if let Err(e) = jrk.stop_motor() {
-            println!("SerialError: {:?}", e);
+            println!("SerialError: {e:?}");
         }
         thread::sleep(time::Duration::from_secs(2));
         jrk.show_vars(&mut ret).ok();
-        println!("{}", ret);
+        println!("{ret}");
         ret = "".to_string();
 
         if let Err(e) = jrk.set_target(1450) {
-            println!("SerialError: {:?}", e);
+            println!("SerialError: {e:?}");
         }
         thread::sleep(time::Duration::from_secs(2));
         jrk.show_vars(&mut ret).ok();
-        println!("{}", ret);
+        println!("{ret}");
         ret = "".to_string();
     }
 }

@@ -1,13 +1,10 @@
 use core::fmt;
-use ufmt::{uWrite, uwriteln};
 
 use crate::enums::{JrkG2Command, VarOffset};
 
 /// Trait that defines common operations for the Jrk G2, and has to be implemented for any
 /// particular communication bus (currently available: Serial / I2C / Blocking I2C).
 pub trait JrkG2<ComError> {
-    const HEADER: &'static str;
-
     fn write(&mut self, data: &[u8]) -> Result<(), ComError>;
     fn read(&mut self, cmd: VarOffset) -> Result<u16, ComError>;
 
@@ -27,13 +24,12 @@ pub trait JrkG2<ComError> {
     }
     /// Print one of the internal variables of the controller to a fmt::Write implementor
     fn show_var<W: fmt::Write>(&mut self, f: &mut W, var: VarOffset) -> Result<(), ComError> {
-        f.write_fmt(format_args!("{:?}: {}\n", var, self.read(var)?))
-            .ok();
+        let val = self.read(var)?;
+        f.write_fmt(format_args!("{var:?}: {val}\n")).ok();
         Ok(())
     }
     /// Print main internal variables of the controller to a fmt::Write implementor
     fn show_vars<W: fmt::Write>(&mut self, f: &mut W) -> Result<(), ComError> {
-        f.write_str(Self::HEADER).ok();
         self.show_var(f, VarOffset::Input)?;
         self.show_var(f, VarOffset::Target)?;
         self.show_var(f, VarOffset::Feedback)?;
@@ -49,13 +45,15 @@ pub trait JrkG2<ComError> {
     }
 
     /// Print one of the internal variables of the controller to a uWrite
+    #[cfg(feature)]
     fn ushow_var<W: uWrite>(&mut self, f: &mut W, var: VarOffset) -> Result<(), ComError> {
-        uwriteln!(f, "{:?}: {}", var, self.read(var).ok().unwrap()).ok();
+        let val = self.read(var)?;
+        uwriteln!(f, "{var:?}: {val}").ok();
         Ok(())
     }
     /// Print main internal variables of the controller to a uWrite implementor
+    #[cfg(feature)]
     fn ushow_vars<W: uWrite>(&mut self, f: &mut W) -> Result<(), ComError> {
-        f.write_str(Self::HEADER).ok();
         self.ushow_var(f, VarOffset::Input)?;
         self.ushow_var(f, VarOffset::Target)?;
         self.ushow_var(f, VarOffset::Feedback)?;

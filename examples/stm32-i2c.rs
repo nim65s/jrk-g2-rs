@@ -85,13 +85,13 @@ fn main() -> ! {
 
     loop {
         if let Err(e) = jrk.stop_motor() {
-            write!(tx, "I2cError: {:?}", e).ok();
+            write!(tx, "I2cError: {e:?}").ok();
         }
         block!(timer.wait()).unwrap();
         jrk.show_vars(&mut tx).ok();
 
         if let Err(e) = jrk.set_target(1400) {
-            write!(tx, "I2cError: {:?}", e).ok();
+            write!(tx, "I2cError: {e:?}").ok();
         }
         block!(timer.wait()).unwrap();
         jrk.show_vars(&mut tx).ok();
