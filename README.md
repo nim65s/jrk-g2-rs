@@ -1,5 +1,7 @@
 # pololu Jrk G2 rust driver
 
+[![CI](https://github.com/nim65s/jrk-g2-rs/actions/workflows/ci.yml/badge.svg)](https://github.com/nim65s/jrk-g2-rs/actions/workflows/ci.yml)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/nim65s/jrk-g2-rs/main.svg)](https://results.pre-commit.ci/latest/github/nim65s/jrk-g2-rs/main)
 [![doc](https://docs.rs/jrk-g2-rs/badge.svg)](https://docs.rs/jrk-g2-rs)
 
 - https://crates.io/crates/jrk-g2-rs
