@@ -1,4 +1,6 @@
 // Copy-Paste from https://github.com/pololu/jrk-g2-arduino/blob/master/JrkG2.h
+#[cfg(feature = "postcard")]
+use postcard::experimental::max_size::MaxSize;
 #[cfg(feature = "ufmt")]
 use ufmt::derive::uDebug;
 
@@ -6,6 +8,7 @@ use ufmt::derive::uDebug;
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[cfg_attr(feature = "postcard", derive(MaxSize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum VarOffset {
     Input = 0x00,              // u16
@@ -44,6 +47,7 @@ pub enum VarOffset {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[cfg_attr(feature = "postcard", derive(MaxSize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum SettingOffset {
     OptionsByte1 = 0x01,                        // u8
@@ -115,6 +119,7 @@ pub enum SettingOffset {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[cfg_attr(feature = "postcard", derive(MaxSize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Error {
     AwaitingCommand = 0,
@@ -139,6 +144,7 @@ pub enum JrkG2Error {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[cfg_attr(feature = "postcard", derive(MaxSize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Command {
     SetTarget = 0xC0,
@@ -165,6 +171,7 @@ pub enum JrkG2Command {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[cfg_attr(feature = "postcard", derive(MaxSize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2ForceMode {
     None = 0,
@@ -179,6 +186,7 @@ pub enum JrkG2ForceMode {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[cfg_attr(feature = "postcard", derive(MaxSize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Reset {
     PowerUp = 0,
@@ -194,6 +202,7 @@ pub enum JrkG2Reset {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[cfg_attr(feature = "postcard", derive(MaxSize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Pin {
     Scl = 0,
@@ -213,6 +222,7 @@ pub enum JrkG2Pin {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
+#[cfg_attr(feature = "postcard", derive(MaxSize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2OptionsByte3 {
     ResetIntegral = 0,
