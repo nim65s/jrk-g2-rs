@@ -1,7 +1,7 @@
 #![no_std]
 
 mod enums;
-pub use enums::{JrkG2Command, VarOffset};
+pub use enums::{JrkG2Command, JrkG2Error, VarOffset};
 
 mod jrk;
 pub use jrk::JrkG2;
