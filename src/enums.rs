@@ -1,6 +1,8 @@
 // Copy-Paste from https://github.com/pololu/jrk-g2-arduino/blob/master/JrkG2.h
 #[cfg(feature = "postcard")]
 use postcard::experimental::max_size::MaxSize;
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
 #[cfg(feature = "ufmt")]
 use ufmt::derive::uDebug;
 
@@ -9,6 +11,7 @@ use ufmt::derive::uDebug;
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
 #[cfg_attr(feature = "postcard", derive(MaxSize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum VarOffset {
     Input = 0x00,              // u16
@@ -48,6 +51,7 @@ pub enum VarOffset {
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
 #[cfg_attr(feature = "postcard", derive(MaxSize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum SettingOffset {
     OptionsByte1 = 0x01,                        // u8
@@ -120,6 +124,7 @@ pub enum SettingOffset {
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
 #[cfg_attr(feature = "postcard", derive(MaxSize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Error {
     AwaitingCommand = 0,
@@ -145,6 +150,7 @@ pub enum JrkG2Error {
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
 #[cfg_attr(feature = "postcard", derive(MaxSize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Command {
     SetTarget = 0xC0,
@@ -172,6 +178,7 @@ pub enum JrkG2Command {
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
 #[cfg_attr(feature = "postcard", derive(MaxSize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2ForceMode {
     None = 0,
@@ -187,6 +194,7 @@ pub enum JrkG2ForceMode {
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
 #[cfg_attr(feature = "postcard", derive(MaxSize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Reset {
     PowerUp = 0,
@@ -203,6 +211,7 @@ pub enum JrkG2Reset {
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
 #[cfg_attr(feature = "postcard", derive(MaxSize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Pin {
     Scl = 0,
@@ -223,6 +232,7 @@ pub enum JrkG2Pin {
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
 #[cfg_attr(feature = "postcard", derive(MaxSize))]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 #[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2OptionsByte3 {
     ResetIntegral = 0,
