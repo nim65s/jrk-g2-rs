@@ -6,7 +6,7 @@ use ufmt::derive::uDebug;
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum VarOffset {
     Input = 0x00,              // u16
     Target = 0x02,             // u16
@@ -44,7 +44,7 @@ pub enum VarOffset {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum SettingOffset {
     OptionsByte1 = 0x01,                        // u8
     OptionsByte2 = 0x02,                        // u8
@@ -115,7 +115,7 @@ pub enum SettingOffset {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Error {
     AwaitingCommand = 0,
     NoPower = 1,
@@ -139,7 +139,7 @@ pub enum JrkG2Error {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Command {
     SetTarget = 0xC0,
     SetTargetLowResRev = 0xE0,
@@ -165,7 +165,7 @@ pub enum JrkG2Command {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2ForceMode {
     None = 0,
     DutyCycleTarget = 1,
@@ -179,7 +179,7 @@ pub enum JrkG2ForceMode {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Reset {
     PowerUp = 0,
     Brownout = 1,
@@ -194,7 +194,7 @@ pub enum JrkG2Reset {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2Pin {
     Scl = 0,
     Sda = 1,
@@ -213,7 +213,7 @@ pub enum JrkG2Pin {
 #[allow(dead_code)]
 #[repr(u8)]
 #[cfg_attr(feature = "ufmt", derive(uDebug))]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum JrkG2OptionsByte3 {
     ResetIntegral = 0,
     CoastWhenOff = 1,
