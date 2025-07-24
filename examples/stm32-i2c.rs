@@ -13,38 +13,36 @@ use core::fmt::Write;
 use cortex_m_rt::entry;
 use nb::block;
 use panic_halt as _;
-use stm32f1xx_hal::{i2c, pac, prelude::*, serial, timer::Timer};
+use stm32f1xx_hal::{i2c, pac, prelude::*, serial};
 
-use jrk_g2::{BlockingI2c as Jrk, JrkG2};
+use jrk_g2::{I2c as Jrk, JrkG2};
 
 #[entry]
 fn main() -> ! {
     #[allow(clippy::unwrap_used)]
-    let cp = cortex_m::Peripherals::take().unwrap();
-    #[allow(clippy::unwrap_used)]
     let dp = pac::Peripherals::take().unwrap();
 
     let mut flash = dp.FLASH.constrain();
-    let mut rcc = dp.RCC.constrain();
+    let rcc = dp.RCC.constrain();
 
-    let mut afio = dp.AFIO.constrain(&mut rcc.apb2);
+    let mut afio = dp.AFIO.constrain();
     let clocks = rcc.cfgr.freeze(&mut flash.acr);
-    let mut timer = Timer::syst(cp.SYST, &clocks).start_count_down(1.hz());
+    let mut timer = dp.TIM1.counter_ms(&clocks);
+    timer.start(1.secs()).unwrap();
 
-    let mut gpioa = dp.GPIOA.split(&mut rcc.apb2);
-    let mut gpiob = dp.GPIOB.split(&mut rcc.apb2);
+    let mut gpioa = dp.GPIOA.split();
+    let mut gpiob = dp.GPIOB.split();
 
     // Initialize USART1 on PA9 & PA10 for monitoring
     let tx = gpioa.pa9.into_alternate_push_pull(&mut gpioa.crh);
     let rx = gpioa.pa10;
 
-    let serial = serial::Serial::usart1(
+    let serial = serial::Serial::new(
         dp.USART1,
         (tx, rx),
         &mut afio.mapr,
         serial::Config::default().baudrate(115_200.bps()),
-        clocks,
-        &mut rcc.apb2,
+        &clocks,
     );
     let (mut tx, _rx) = serial.split();
     writeln!(tx, "serial monitor initialized").unwrap();
@@ -52,35 +50,21 @@ fn main() -> ! {
     // Initialize connexion to the Jrk: I2C1 on PB8 & PB9 and USART3 on PB10 & PB11
     let scl = gpiob.pb8.into_alternate_open_drain(&mut gpiob.crh);
     let sda = gpiob.pb9.into_alternate_open_drain(&mut gpiob.crh);
-    let jrk_tx = gpiob.pb10.into_alternate_push_pull(&mut gpiob.crh);
-    let jrk_rx = gpiob.pb11;
 
     let i2c = i2c::BlockingI2c::i2c1(
         dp.I2C1,
         (scl, sda),
         &mut afio.mapr,
         i2c::Mode::Fast {
-            frequency: 400_000.hz(),
+            frequency: 400.kHz(),
             duty_cycle: i2c::DutyCycle::Ratio2to1,
         },
         clocks,
-        &mut rcc.apb1,
         10000,
         100,
         10000,
         10000,
     );
-
-    let jrk_ser = serial::Serial::usart3(
-        dp.USART3,
-        (jrk_tx, jrk_rx),
-        &mut afio.mapr,
-        serial::Config::default().baudrate(9_600.bps()),
-        clocks,
-        &mut rcc.apb1,
-    );
-
-    let (_jrk_tx, _jrk_rx) = jrk_ser.split();
 
     let mut jrk = Jrk::new(i2c);
     writeln!(tx, "Jrk initialized on stm32 by i2c").unwrap();
